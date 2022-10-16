@@ -45,8 +45,6 @@ sequelize.models = Object.fromEntries(capsEntries);
 const { Characters, Genres, Movies, Users } = sequelize.models
 
 
-
-
 Movies.belongsToMany(Characters,{through: 'CharactersMovies'});
 Characters.belongsToMany(Movies,{through: 'CharactersMovies'});
 Genres.hasMany(Movies);

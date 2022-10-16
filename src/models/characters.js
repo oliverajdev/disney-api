@@ -6,20 +6,21 @@ module.exports = (sequelize) => {
         {
             id: {
                 type: DataTypes.INTEGER,
-                defaultValue: DataTypes.INTEGER,
+                autoIncrement: true,
                 allowNull: false,
                 primaryKey: true,
             },
             name: {
                 type: DataTypes.STRING,
                 allowNull: false,
+                unique:true,
             },
             img: {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
             age: {
-                type: DataTypes.DATE,
+                type: DataTypes.INTEGER,
                 allowNull: false,
             },
             size: {

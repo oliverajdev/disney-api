@@ -19,12 +19,13 @@ module.exports = (sequelize) => {
     
             },
             release: {
-                type: DataTypes.DATE,
+                type: DataTypes.STRING,
                 allowNull: false,
             },
             title: {
                 type: DataTypes.STRING,
                 allowNull: false,
+                unique: true,
             },
             score: {
                 type: DataTypes.INTEGER,

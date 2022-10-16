@@ -1,0 +1,645 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Swagger DisneyApi",
+    "description": "This is a sample Pet Store Server based on the OpenAPI 3.0 specification.  You can find out more about\nSwagger at [https://swagger.io](https://swagger.io). In the third iteration of the pet store, we've switched to the design first approach!\nYou can now help us improve the API whether it's by making changes to the definition itself or to the code.\nThat way, with time, we can improve the API in general, and expose some of the new features in OAS3.\n\n_If you're looking for the Swagger 2.0/OAS 2.0 version of Petstore, then click [here](https://editor.swagger.io/?url=https://petstore.swagger.io/v2/swagger.yaml). Alternatively, you can load via the `Edit > Load Petstore OAS 2.0` menu option!_\n\nSome useful links:\n- [The Pet Store repository](https://github.com/swagger-api/swagger-petstore)\n- [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)",
+    "contact": {
+      "email": "oliverajdev@gmail.com"
+    },
+    "version": "1.0.1"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3001/"
+    }
+  ],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Create user",
+        "description": "This can only be done by the logged in user.",
+        "requestBody": {
+          "description": "Created user object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created user"
+          },
+          "404": {
+            "description": "Invalid inputs"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Login user",
+        "description": "This can only be done by the logged in user.",
+        "requestBody": {
+          "description": "Created user object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                  
+                }
+              }
+              }
+          },
+          "404": {
+            "description": "Invalid inputs"
+          }
+        }
+      }
+    },
+    "/movies": {
+      "get": {
+        "tags": [
+          "Movies"
+        ],
+        "summary": "Get All movies",
+        "parameters": [
+          {
+            "name": "title",
+            "in": "query",
+            "description": "find by title",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "genre",
+            "in": "query",
+            "description": "find by genre",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "order ASC or DESC",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/getMovies"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/movies/{id}": {
+      "get": {
+        "tags": [
+          "Movies"
+        ],
+        "summary": "Get movies by Id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Id movie"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IdMovies"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Not match Id"
+          }
+        }
+      }
+    },
+    "/movie/create": {
+      "post": {
+        "tags": [
+          "Movies"
+        ],
+        "summary": "Create movie",
+        "requestBody": {
+          "description": "Created movie object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Movies"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created user"
+          },
+          "400": {
+            "description": "Invalid inputs"
+          }
+        }
+      }
+    },
+    "/movie/update": {
+      "put": {
+        "tags": [
+          "Movies"
+        ],
+        "summary": "Update movie",
+        "requestBody": {
+          "description": "Created movie object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Movies"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update movie"
+          },
+          "400": {
+            "description": "Invalid inputs"
+          }
+        }
+      }
+    },
+    "/movie/delete/{id}": {
+      "delete": {
+        "tags": [
+          "Movies"
+        ],
+        "summary": "Delete movie",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Id movie"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Delete movie"
+          },
+          "400": {
+            "description": "Not match id"
+          }
+        }
+      }
+    },
+    "/characters": {
+      "get": {
+        "tags": [
+          "Characters"
+        ],
+        "summary": "Get All characters",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "find by name",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "age",
+            "in": "query",
+            "description": "find by age",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "movies",
+            "in": "query",
+            "description": "find by movies",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/getCharacters"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/characters/{id}": {
+      "get": {
+        "tags": [
+          "Characters"
+        ],
+        "summary": "Get characters by Id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Id movie"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IdCharacters"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/characters/create": {
+      "post": {
+        "tags": [
+          "Characters"
+        ],
+        "summary": "Create movie",
+        "requestBody": {
+          "description": "Created movie object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Character"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created user"
+          },
+          "404": {
+            "description": "Invalid inputs"
+          }
+        }
+      }
+    },
+    "/characters/update": {
+      "put": {
+        "tags": [
+          "Characters"
+        ],
+        "summary": "Update movie",
+        "requestBody": {
+          "description": "Created movie object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Character"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update movie"
+          },
+          "400": {
+            "description": "Invalid inputs"
+          }
+        }
+      }
+    },
+    "/characters/delete/{id}": {
+      "delete": {
+        "tags": [
+          "Characters"
+        ],
+        "summary": "Delete movie",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Id movie"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Delete movie"
+          },
+          "400": {
+            "description": "Invalid inputs"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "userName": {
+            "type": "string",
+            "example": "theUser123"
+          },
+          "email": {
+            "type": "string",
+            "example": "john@email.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "asdDSd43%"
+          }
+        }
+      },
+      "Character": {
+        "required": [
+          "name",
+          "img",
+          "age",
+          "size",
+          "story"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "img": {
+            "type": "string",
+            "example": "www.img.com"
+          },
+          "age": {
+            "type": "integer",
+            "format": "int64",
+            "example": 10
+          },
+          "size": {
+            "type": "integer",
+            "format": "int64",
+            "example": 54.4
+          },
+          "movies": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        }
+      },
+      "Movies": {
+        "required": [
+          "title",
+          "img",
+          "release",
+          "score",
+          "genre"
+        ],
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Eternals"
+          },
+          "img": {
+            "type": "string",
+            "example": "www.img.com/213a"
+          },
+          "score": {
+            "type": "integer",
+            "format": "int64",
+            "example": 5
+          },
+          "genre": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          },
+          "characters": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        }
+      },
+      "getMovies": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Eternals"
+          },
+          "img": {
+            "type": "string",
+            "example": "www.img.com/123sa"
+          },
+          "release": {
+            "type": "string",
+            "example": "01/05/1994"
+          }
+        }
+      },
+      "IdMovies": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Eternals"
+          },
+          "img": {
+            "type": "string",
+            "example": "www.img.com/213a"
+          },
+          "score": {
+            "type": "integer",
+            "format": "int64",
+            "example": 5
+          },
+          "release": {
+            "type": "string",
+            "example": "10/04/1994"
+          },
+          "genre": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "Accion"
+              },
+              "img": {
+                "type": "string",
+                "example": "www.img.com/123as"
+              }
+            }
+          },
+          "characters": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Jhon"
+                },
+                "img": {
+                  "type": "string",
+                  "example": "www.img.com/123as"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Genres": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Accion"
+          }
+        }
+      },
+      "getCharacters": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Jhon"
+          },
+          "img": {
+            "type": "string",
+            "example": "www.img.com/123sa"
+          }
+        }
+      },
+      "IdCharacters": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Jhon"
+          },
+          "img": {
+            "type": "string",
+            "example": "www.img.com/213a"
+          },
+          "story": {
+            "type": "string",
+            "example": "Lorem ipsum"
+          },
+          "size": {
+            "type": "integer",
+            "example": 85.4
+          },
+          "age": {
+            "type": "integer",
+            "example": 43
+          },
+          "Movies": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string",
+                "example": "Eternals"
+              },
+              "img": {
+                "type": "string",
+                "example": "www.img.com/123as"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
