@@ -2,6 +2,8 @@
 const request = require('supertest');
 const expect = require('chai').expect;
 const app = require('../src/app');
+const {conn} = require('../src/db')
+
 
 
 
@@ -237,6 +239,49 @@ describe('/movies', function(){
             expect(res.body).to.eql({msg:'Not match id'})
         })
     })
+
+    
+
+
+})
+
+
+
+describe('/characters', function(){
+    it('debe crear una pelicula',function(){
+        return request(app)
+        .post('/characters/create')
+        .set({ "Authorization": `Bearer ${token}` })
+        .send({
+            name: 'Jhon',
+            img: 'www.img.com/123',
+            age: 15,
+            size: 54.5,
+            story: 'Lorem ipsum'
+        })
+        .expect(201)
+        .expect(function(res){
+            expect(res.body).to.eql({msg:'character created'})
+        })
+    })
+
+    it('debe arrojar un error si el nombre no es un string de hasta 50 caracteres',function(){
+        return request(app)
+        .post('/movies/create')
+        .set({ "Authorization": `Bearer ${token}` })
+        .send({
+            name: 123,
+            img: 'www.img.com/123',
+            age: 15,
+            size: 54.5,
+            story: 'Lorem ipsum'
+        })
+        .expect(400)
+        .expect(function(res){
+            expect(res.body).to.eql({msg:'incorrect values'})
+        })
+    })
+
 
     
 

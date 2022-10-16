@@ -76,29 +76,34 @@ const findCharacter = async (req,res,next) => {
 const createCharacter = async (req,res,next) => {
     try{
         const {img,name,age,size,story,movies} = req.body
+        const findMovies = undefined
         const validator = characterValidator(req.body)
         if(!validator) return res.status(400).json({msg: 'invalid values'})
-        const findMovies = await Movies.findAll({
-            where:{
-                id: movies
-            }
-        })
-        if(!findMovies) res.status(400).json({msg:'movies not match'})
+        if(movies){
+            findMovies = await Movies.findAll({
+                where:{
+                    id: movies
+                }
+            })
+            if(findMovies.length === 0) res.status(400).json({msg:'movies not match'})    
+        }
+        
         const [character,created] =  await Characters.findOrCreate({
             where:{
                 name
             },
-                defaults:{
-                    img,
-                    name,
-                    age,
-                    size,
-                    story
+            defaults:{
+                img,
+                name,
+                age,
+                size,
+                story
                 }
             });
+
         if(!created) return res.status(400).json({msg:'character already exist'});
-        if(movies) await character.addMovies(movies)
-        res.status(200).json('character created')
+        if(findMovies) await character.addMovies(movies)
+        res.status(201).json({msg:'character created'})
     }catch(err){
         next(err)
     }

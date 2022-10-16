@@ -1,11 +1,11 @@
 const { Sequelize } = require('sequelize');
+require("dotenv").config();
 const fs = require('fs');
 const path = require('path');
-const users = require('./models/users');
 
 const  basename = path.basename(__filename);
 const modelDefiners = [];
-const  DATABASE = 'mssql://jerobd:Pediter17@localhost:1433/disneybd'
+const  {DATABASE} = process.env
 
 const sequelize = new Sequelize(
     DATABASE,
