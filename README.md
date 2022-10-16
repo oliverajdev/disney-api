@@ -1,4 +1,4 @@
-# Challenge para acelerecion alkemy
+# Challenge para aceleracion alkemy
 
 1. `npm i` para instalar las dependendencias
 2. `npm start` para levantar el servidor
