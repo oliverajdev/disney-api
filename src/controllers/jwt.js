@@ -26,13 +26,13 @@ const signToken =  ({userId,userName}) =>
 const  verifyToken = async (req,res,next) =>{
     try{
        const {authorization} = req.headers;
-       if(!authorization) return res.status(404).json({msg:'Required authrorization'})
+       if(!authorization) return res.status(401).json({msg:'Required authrorization'})
        const token = authorization.split(" ").pop()
        const verify = await jwt.verify(token, JWT_SECRET)
        if(verify){
         next()
        }else{
-        return res.status(404).json({msg:'Unauthorized'})
+        return res.status(401).json({msg:'Unauthorized'})
        }
     }catch(err){
        next(err)
