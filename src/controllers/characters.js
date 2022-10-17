@@ -29,7 +29,7 @@ const getCharactersById = async (req,res,next) => {
                   },
             }
         });
-        if(!detailCharacter) res.status(401).json({msg: 'id not match'})
+        if(!detailCharacter) res.status(400).json({msg: 'id not match'})
         else res.status(200).json(detailCharacter)
     }catch(err){
         next(err)
@@ -41,7 +41,7 @@ const findCharacter = async (req,res,next) => {
         var detailCharacter = undefined
         var {size,age,size,idMovies} = req.query
         if(!Object.keys(req.query).length) return next()
-        if(!(size || age || size ||idMovies)) return res.status(401).json({msg:'invalid query'})
+        if(!(size || age || size ||idMovies)) return res.status(400).json({msg:'invalid query'})
         if(idMovies){
           idMovies = Number(idMovies)
           detailCharacter = await Characters.findAll({
@@ -151,7 +151,7 @@ const deleteCharacter = async (req,res,next) => {
             id
         }
     })
-    if(!deleteChar) return res.status(401).json({msg:'not match id'})
+    if(!deleteChar) return res.status(400).json({msg:'not match id'})
     res.status(201).json({msg:'char deleted'})
 };
 
